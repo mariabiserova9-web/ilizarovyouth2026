@@ -126,7 +126,8 @@
       padding-bottom: 2px;
     }
 
-    .nav-links a::after {
+    /* подчёркивание только у обычных ссылок, не у кнопки */
+    .nav-links a:not(.nav-cta)::after {
       content: "";
       position: absolute;
       left: 0;
@@ -137,7 +138,7 @@
       transition: width 0.2s ease;
     }
 
-    .nav-links a:hover::after {
+    .nav-links a:not(.nav-cta):hover::after {
       width: 100%;
     }
 
@@ -145,7 +146,7 @@
       padding: 8px 18px;
       border-radius: 999px;
       background: #c7f9cc;
-      color: #064e3b;
+      color: #047857;              /* изумрудный текст */
       font-weight: 600;
       font-size: 14px;
       border: none;
@@ -154,6 +155,9 @@
       transition: var(--transition);
       text-decoration: none;
       white-space: nowrap;
+      display: inline-flex;        /* центрируем текст */
+      align-items: center;
+      justify-content: center;
     }
     .nav-cta:hover {
       transform: translateY(-1px);
@@ -656,10 +660,11 @@
       margin-top: 6px;
     }
 
+    /* ровные отступы у маркированных списков */
     .list-check {
       list-style: none;
       font-size: 13px;
-      margin-top: 8px;
+      margin: 17px 0;
     }
 
     .list-check li {
@@ -1080,7 +1085,7 @@
             </div>
           </div>
 
-          <p class="section-sub" style="margin-bottom:6px;">
+          <p class="section-sub">
             Организаторы:
           </p>
 
@@ -1092,11 +1097,11 @@
           </ul>
 
           <p class="fee-note">
-            Формат мероприятия рассчитан на ограниченное количество участников — 30 человек — для того, чтобы было достаточно времени
+            Формат мероприятия рассчитан на ограниченное количество участников — для того, чтобы было достаточно времени
             на разбор кейсов и личное общение.
           </p>
 
-          <div class="pill-list" style="margin-top:10px;">
+          <div class="pill-list">
             <span class="pill">метод Илизарова</span>
             <span class="pill">чрескостный остеосинтез</span>
             <span class="pill">реконструктивная хирургия</span>
@@ -1241,7 +1246,7 @@
             Фиксированный оргвзнос покрывает все основные расходы участника на время проведения конференции.
           </p>
 
-          <ul class="list-check" style="margin-top:10px;">
+          <ul class="list-check">
             <li>
               <span class="check-icon">✓</span>
               <span>проживание на территории глэмпинга «Воздух леса» на весь период мероприятия;</span>
@@ -1302,7 +1307,6 @@
       <div class="gallery-grid">
         <div>
           <div class="gallery-main">
-            <!-- Сохрани основной файл, например, как glamping-main.jpg в репозитории -->
             <img src="glamping-main.jpg" alt="Глэмпинг: домик на террасе среди сосен">
           </div>
           <div class="gallery-thumbs">
@@ -1324,7 +1328,7 @@
               Открыть глэмпинг «Воздух леса» в Google Maps
             </a>
           </p>
-          <p class="fee-note" style="margin-top:8px;">
+          <p class="fee-note">
             Локация также представлена во <a href="https://vk.com/vozduh_leca" target="_blank" rel="noopener noreferrer">вКонтакте-группе глэмпинга</a>.
           </p>
         </div>
@@ -1394,24 +1398,26 @@
 
       <div class="form-grid">
         <div class="card">
-          <!-- До бэкенда можно использовать отправку через почтовый клиент -->
-          <form action="mailto:maria.biserova9@gmail.com" method="POST" enctype="text/plain">
-            <input type="hidden" name="Событие" value="Метод Илизарова в трёх соснах (5–7 июня 2026, глэмпинг «Воздух леса»)">
+          <!-- Отправка через formsubmit.co -->
+          <form action="https://formsubmit.co/maria.biserova9@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Заявка: Метод Илизарова в трёх соснах">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
 
             <div class="form-row">
               <div>
                 <label for="last-name">Фамилия</label>
-                <input type="text" id="last-name" name="Фамилия" placeholder="Илизаров" required>
+                <input type="text" id="last-name" name="last_name" placeholder="Илизаров" required>
               </div>
               <div>
                 <label for="first-name">Имя</label>
-                <input type="text" id="first-name" name="Имя" placeholder="Гавриил" required>
+                <input type="text" id="first-name" name="first_name" placeholder="Гавриил" required>
               </div>
             </div>
 
             <div>
               <label for="phone">Номер телефона для связи</label>
-              <input type="tel" id="phone" name="Телефон" placeholder="+7 (___) ___-__-__" required>
+              <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
               <p class="field-hint">
                 Связь осуществляется через Telegram, WhatsApp или МАКС.
               </p>
@@ -1419,7 +1425,7 @@
 
             <div>
               <label for="menu">Предпочтения по меню</label>
-              <select id="menu" name="Меню" required>
+              <select id="menu" name="menu" required>
                 <option value="">Выберите вариант</option>
                 <option value="обычное">Обычное</option>
                 <option value="халяль">Халяль</option>
@@ -1432,8 +1438,7 @@
                 Отправить заявку
               </button>
               <p class="form-footnote">
-                После нажатия откроется ваш почтовый клиент с письмом на
-                <strong>maria.biserova9@gmail.com</strong> — проверьте данные и отправьте его.
+                После отправки формы вы получите письмо-подтверждение на почту, которую используете в своём почтовом аккаунте.
               </p>
             </div>
           </form>
@@ -1443,7 +1448,7 @@
           <p class="section-sub">
             Зачем нам эти данные?
           </p>
-          <ul class="list-check" style="margin-top:10px;">
+          <ul class="list-check">
             <li>
               <span class="check-icon">✓</span>
               <span>Фамилия и имя нужны для списка участников и оформления документов.</span>
@@ -1459,7 +1464,7 @@
           </ul>
           <p class="fee-note">
             Если у вас есть дополнительные запросы (аллергии, особенности здоровья, вопросы по размещению),
-            их можно добавить в текст письма перед отправкой.
+            их можно указать при общении с организаторами после подтверждения заявки.
           </p>
         </aside>
       </div>
